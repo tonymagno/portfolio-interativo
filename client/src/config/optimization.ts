@@ -1,1 +1,127 @@
-/**\n * Configurações de Otimização\n * Performance, acessibilidade e boas práticas\n */\n\n/**\n * Configurações de Lazy Loading\n */\nexport const LAZY_LOADING_CONFIG = {\n  // Threshold para observador de interseção\n  threshold: 0.1,\n  // Margem para começar a carregar antes de entrar na viewport\n  rootMargin: '50px',\n  // Habilitar lazy loading de imagens\n  enabled: true,\n};\n\n/**\n * Configurações de Cache\n */\nexport const CACHE_CONFIG = {\n  // Tempo de cache em segundos\n  duration: 3600,\n  // Estratégia de cache\n  strategy: 'cache-first' as const,\n  // Versão do cache\n  version: 'v1',\n};\n\n/**\n * Configurações de Compressão\n */\nexport const COMPRESSION_CONFIG = {\n  // Habilitar compressão de imagens\n  imageCompression: true,\n  // Qualidade de imagens (0-100)\n  imageQuality: 80,\n  // Formatos suportados\n  supportedFormats: ['webp', 'jpg', 'png'],\n};\n\n/**\n * Configurações de Performance\n */\nexport const PERFORMANCE_CONFIG = {\n  // Habilitar code splitting\n  codeSplitting: true,\n  // Habilitar tree shaking\n  treeShaking: true,\n  // Minificar CSS\n  minifyCSS: true,\n  // Minificar JavaScript\n  minifyJS: true,\n  // Remover comentários\n  removeComments: true,\n};\n\n/**\n * Configurações de Acessibilidade\n */\nexport const ACCESSIBILITY_CONFIG = {\n  // Respeitar preferência de movimento reduzido\n  respectReducedMotion: true,\n  // Suporte a modo escuro\n  darkModeSupport: true,\n  // Contraste mínimo (WCAG AA = 4.5:1)\n  minContrast: 4.5,\n  // Tamanho mínimo de fonte (px)\n  minFontSize: 14,\n  // Altura mínima de linha\n  minLineHeight: 1.5,\n  // Espaçamento mínimo entre elementos interativos\n  minTouchTarget: 44,\n};\n\n/**\n * Configurações de Responsividade\n */\nexport const RESPONSIVE_CONFIG = {\n  // Breakpoints\n  breakpoints: {\n    xs: 320,\n    sm: 640,\n    md: 768,\n    lg: 1024,\n    xl: 1280,\n    '2xl': 1536,\n  },\n  // Densidade de pixels\n  pixelDensity: 'auto',\n};\n\n/**\n * Configurações de Animação\n */\nexport const ANIMATION_CONFIG = {\n  // Duração padrão de animações (ms)\n  defaultDuration: 300,\n  // Easing padrão\n  defaultEasing: 'cubic-bezier(0.23, 1, 0.32, 1)',\n  // Respeitar preferência de movimento reduzido\n  respectReducedMotion: true,\n  // Desabilitar animações em conexões lentas\n  disableOnSlowConnection: true,\n};\n\n/**\n * Configurações de Fonte\n */\nexport const FONT_CONFIG = {\n  // Fontes a carregar\n  fonts: [\n    {\n      name: 'Poppins',\n      weights: [400, 500, 600, 700, 800],\n      display: 'swap',\n    },\n    {\n      name: 'Inter',\n      weights: [400, 500, 600, 700],\n      display: 'swap',\n    },\n  ],\n  // Fallback fonts\n  fallback: 'system-ui, -apple-system, sans-serif',\n};\n
+/**
+ * Configurações de Otimização
+ * Performance, acessibilidade e boas práticas
+ */
+
+/**
+ * Configurações de Lazy Loading
+ */
+export const LAZY_LOADING_CONFIG = {
+  // Threshold para observador de interseção
+  threshold: 0.1,
+  // Margem para começar a carregar antes de entrar na viewport
+  rootMargin: '50px',
+  // Habilitar lazy loading de imagens
+  enabled: true,
+};
+
+/**
+ * Configurações de Cache
+ */
+export const CACHE_CONFIG = {
+  // Tempo de cache em segundos
+  duration: 3600,
+  // Estratégia de cache
+  strategy: 'cache-first' as const,
+  // Versão do cache
+  version: 'v1',
+};
+
+/**
+ * Configurações de Compressão
+ */
+export const COMPRESSION_CONFIG = {
+  // Habilitar compressão de imagens
+  imageCompression: true,
+  // Qualidade de imagens (0-100)
+  imageQuality: 80,
+  // Formatos suportados
+  supportedFormats: ['webp', 'jpg', 'png'],
+};
+
+/**
+ * Configurações de Performance
+ */
+export const PERFORMANCE_CONFIG = {
+  // Habilitar code splitting
+  codeSplitting: true,
+  // Habilitar tree shaking
+  treeShaking: true,
+  // Minificar CSS
+  minifyCSS: true,
+  // Minificar JavaScript
+  minifyJS: true,
+  // Remover comentários
+  removeComments: true,
+};
+
+/**
+ * Configurações de Acessibilidade
+ */
+export const ACCESSIBILITY_CONFIG = {
+  // Respeitar preferência de movimento reduzido
+  respectReducedMotion: true,
+  // Suporte a modo escuro
+  darkModeSupport: true,
+  // Contraste mínimo (WCAG AA = 4.5:1)
+  minContrast: 4.5,
+  // Tamanho mínimo de fonte (px)
+  minFontSize: 14,
+  // Altura mínima de linha
+  minLineHeight: 1.5,
+  // Espaçamento mínimo entre elementos interativos
+  minTouchTarget: 44,
+};
+
+/**
+ * Configurações de Responsividade
+ */
+export const RESPONSIVE_CONFIG = {
+  // Breakpoints
+  breakpoints: {
+    xs: 320,
+    sm: 640,
+    md: 768,
+    lg: 1024,
+    xl: 1280,
+    '2xl': 1536,
+  },
+  // Densidade de pixels
+  pixelDensity: 'auto',
+};
+
+/**
+ * Configurações de Animação
+ */
+export const ANIMATION_CONFIG = {
+  // Duração padrão de animações (ms)
+  defaultDuration: 300,
+  // Easing padrão
+  defaultEasing: 'cubic-bezier(0.23, 1, 0.32, 1)',
+  // Respeitar preferência de movimento reduzido
+  respectReducedMotion: true,
+  // Desabilitar animações em conexões lentas
+  disableOnSlowConnection: true,
+};
+
+/**
+ * Configurações de Fonte
+ */
+export const FONT_CONFIG = {
+  // Fontes a carregar
+  fonts: [
+    {
+      name: 'Poppins',
+      weights: [400, 500, 600, 700, 800],
+      display: 'swap',
+    },
+    {
+      name: 'Inter',
+      weights: [400, 500, 600, 700],
+      display: 'swap',
+    },
+  ],
+  // Fallback fonts
+  fallback: 'system-ui, -apple-system, sans-serif',
+};
+

@@ -1,1 +1,68 @@
-/**\n * Configuração de SEO e Meta Tags\n * Otimizações para motores de busca e compartilhamento social\n */\n\nexport const SEO_CONFIG = {\n  title: 'Portfólio Interativo | Desenvolvedor Full-Stack',\n  description:\n    'Portfólio interativo com animações fluidas, projetos em destaque e chatbot IA. Desenvolvedor full-stack especializado em React, Node.js e TypeScript.',\n  keywords:\n    'desenvolvedor, full-stack, react, node.js, typescript, portfolio, web development',\n  author: 'Seu Nome',\n  ogImage: 'https://example.com/og-image.png',\n  ogUrl: 'https://portfolio.example.com',\n  twitterHandle: '@seu_twitter',\n};\n\n/**\n * Estrutura de dados JSON-LD para Schema.org\n * Melhora a compreensão do conteúdo pelos motores de busca\n */\nexport const SCHEMA_ORG = {\n  '@context': 'https://schema.org',\n  '@type': 'Person',\n  name: 'Seu Nome',\n  url: 'https://portfolio.example.com',\n  image: 'https://example.com/profile.jpg',\n  jobTitle: 'Full-Stack Developer',\n  description:\n    'Desenvolvedor full-stack com 5+ anos de experiência em React, Node.js e TypeScript.',\n  sameAs: [\n    'https://github.com/seu-usuario',\n    'https://linkedin.com/in/seu-usuario',\n    'https://twitter.com/seu-usuario',\n  ],\n  contact: {\n    '@type': 'ContactPoint',\n    contactType: 'Customer Service',\n    email: 'contato@example.com',\n  },\n};\n\n/**\n * Configurações de Performance\n */\nexport const PERFORMANCE_CONFIG = {\n  // Lazy loading de imagens\n  lazyLoadImages: true,\n  // Preload de fontes críticas\n  preloadFonts: ['Poppins', 'Inter'],\n  // Cache strategy\n  cacheStrategy: 'stale-while-revalidate',\n};\n\n/**\n * Configurações de Acessibilidade\n */\nexport const ACCESSIBILITY_CONFIG = {\n  // Contraste mínimo WCAG AA\n  minContrast: 4.5,\n  // Tamanho mínimo de fonte\n  minFontSize: 14,\n  // Suporte a modo reduzido de movimento\n  respectReducedMotion: true,\n  // Suporte a modo escuro\n  darkModeSupport: true,\n};\n
+/**
+ * Configuração de SEO e Meta Tags
+ * Otimizações para motores de busca e compartilhamento social
+ */
+
+export const SEO_CONFIG = {
+  title: 'Portfólio Interativo | Desenvolvedor Full-Stack',
+  description:
+    'Portfólio interativo com animações fluidas, projetos em destaque e chatbot IA. Desenvolvedor full-stack especializado em React, Node.js e TypeScript.',
+  keywords:
+    'desenvolvedor, full-stack, react, node.js, typescript, portfolio, web development',
+  author: 'Seu Nome',
+  ogImage: 'https://example.com/og-image.png',
+  ogUrl: 'https://portfolio.example.com',
+  twitterHandle: '@seu_twitter',
+};
+
+/**
+ * Estrutura de dados JSON-LD para Schema.org
+ * Melhora a compreensão do conteúdo pelos motores de busca
+ */
+export const SCHEMA_ORG = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Seu Nome',
+  url: 'https://portfolio.example.com',
+  image: 'https://example.com/profile.jpg',
+  jobTitle: 'Full-Stack Developer',
+  description:
+    'Desenvolvedor full-stack com 5+ anos de experiência em React, Node.js e TypeScript.',
+  sameAs: [
+    'https://github.com/seu-usuario',
+    'https://linkedin.com/in/seu-usuario',
+    'https://twitter.com/seu-usuario',
+  ],
+  contact: {
+    '@type': 'ContactPoint',
+    contactType: 'Customer Service',
+    email: 'contato@example.com',
+  },
+};
+
+/**
+ * Configurações de Performance
+ */
+export const PERFORMANCE_CONFIG = {
+  // Lazy loading de imagens
+  lazyLoadImages: true,
+  // Preload de fontes críticas
+  preloadFonts: ['Poppins', 'Inter'],
+  // Cache strategy
+  cacheStrategy: 'stale-while-revalidate',
+};
+
+/**
+ * Configurações de Acessibilidade
+ */
+export const ACCESSIBILITY_CONFIG = {
+  // Contraste mínimo WCAG AA
+  minContrast: 4.5,
+  // Tamanho mínimo de fonte
+  minFontSize: 14,
+  // Suporte a modo reduzido de movimento
+  respectReducedMotion: true,
+  // Suporte a modo escuro
+  darkModeSupport: true,
+};
+

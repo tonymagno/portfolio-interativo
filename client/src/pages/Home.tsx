@@ -1,1 +1,32 @@
-import { useLenis } from '@/hooks/useLenis';\nimport Header from '@/components/Header';\nimport HeroSection from '@/components/HeroSection';\nimport ProjectsSection from '@/components/ProjectsSection';\nimport AboutSection from '@/components/AboutSection';\nimport ContactSection from '@/components/ContactSection';\nimport Footer from '@/components/Footer';\nimport ChatBot from '@/components/ChatBot';\n\nexport default function Home() {\n  useLenis({\n    duration: 1.2,\n    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),\n    smooth: true,\n    smoothTouch: true,\n    wheelMultiplier: 1,\n  });\n\n  return (\n    <div className=\"min-h-screen bg-background text-foreground\">\n      <Header />\n      <main className=\"pt-16 md:pt-20\">\n        <HeroSection />\n        <ProjectsSection />\n        <AboutSection />\n        <ContactSection />\n      </main>\n      <Footer />\n      <ChatBot />\n    </div>\n  );\n}\n
+import { useLenis } from '@/hooks/useLenis';
+import Header from '@/components/Header';
+import HeroSection from '@/components/HeroSection';
+import ProjectsSection from '@/components/ProjectsSection';
+import AboutSection from '@/components/AboutSection';
+import ContactSection from '@/components/ContactSection';
+import Footer from '@/components/Footer';
+import ChatBot from '@/components/ChatBot';
+
+export default function Home() {
+  useLenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smooth: true,
+    smoothTouch: true,
+    wheelMultiplier: 1,
+  });
+
+  return (
+    <div className="min-h-screen bg-background text-foreground">
+      <Header />
+      <main className="pt-16 md:pt-20">
+        <HeroSection />
+        <ProjectsSection />
+        <AboutSection />
+        <ContactSection />
+      </main>
+      <Footer />
+      <ChatBot />
+    </div>
+  );
+}

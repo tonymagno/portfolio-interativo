@@ -37,68 +37,72 @@ export default function Header() {
     >
       <div className="container flex items-center justify-between h-16 md:h-20">
         {/* Logo */}
-        <div className="flex items-center gap-2">
+        <a href="#home" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
           <div className="w-10 h-10 rounded-lg bg-gradient-accent flex items-center justify-center">
-            <span className="text-white font-display font-bold text-lg">P</span>
+            <span className="text-white font-display font-bold text-lg">TM</span>
           </div>
           <span className="font-display font-bold text-lg hidden sm:inline">
-            Portfólio
+            Tony Magno
           </span>
-        </div>
+        </a>
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-8">
           {navItems.map((item) => (
             <a
-              key={item.label}
+              key={item.href}
               href={item.href}
-              className="text-foreground/80 hover:text-foreground transition-smooth text-sm font-medium"
+              className="text-foreground/70 hover:text-foreground transition-colors text-sm font-medium"
             >
               {item.label}
             </a>
           ))}
         </nav>
 
-        {/* CTA Button */}
-        <div className="hidden md:block">
+        {/* Desktop CTA */}
+        <div className="hidden md:flex items-center gap-4">
           <Button
-            className="bg-gradient-accent hover:opacity-90 text-white"
             size="sm"
+            variant="outline"
+            className="hover-scale"
           >
-            Conversar
+            Conversar com IA
           </Button>
         </div>
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden p-2 hover:bg-muted rounded-lg transition-smooth"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
+          className="md:hidden p-2 hover:bg-accent/10 rounded-lg transition-colors"
           aria-label="Toggle menu"
         >
           {isMenuOpen ? (
-            <X className="w-5 h-5" />
+            <X className="w-6 h-6" />
           ) : (
-            <Menu className="w-5 h-5" />
+            <Menu className="w-6 h-6" />
           )}
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Navigation */}
       {isMenuOpen && (
-        <div className="md:hidden bg-background border-b border-border">
-          <nav className="container py-4 flex flex-col gap-3">
+        <div className="md:hidden bg-background/95 backdrop-blur-md border-b border-border">
+          <nav className="container py-4 space-y-2">
             {navItems.map((item) => (
               <a
-                key={item.label}
+                key={item.href}
                 href={item.href}
-                className="text-foreground/80 hover:text-foreground transition-smooth text-sm font-medium py-2"
                 onClick={() => setIsMenuOpen(false)}
+                className="block px-4 py-2 text-foreground/70 hover:text-foreground hover:bg-accent/10 rounded-lg transition-colors"
               >
                 {item.label}
               </a>
             ))}
-            <Button className="w-full bg-gradient-accent hover:opacity-90 text-white mt-2">
-              Conversar
+            <Button
+              size="sm"
+              className="w-full bg-gradient-accent hover:opacity-90 text-white mt-4"
+            >
+              Conversar com IA
             </Button>
           </nav>
         </div>

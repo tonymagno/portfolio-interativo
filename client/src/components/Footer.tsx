@@ -1,1 +1,175 @@
-import { motion } from 'framer-motion';\nimport { Github, Linkedin, Twitter, Mail } from 'lucide-react';\nimport { Button } from '@/components/ui/button';\n\n/**\n * Componente Footer\n * Rodapé com links sociais e informações de contato\n * Design: Minimalismo Sofisticado\n */\nexport default function Footer() {\n  const currentYear = new Date().getFullYear();\n\n  const socialLinks = [\n    {\n      icon: Github,\n      label: 'GitHub',\n      href: '#',\n      color: 'hover:text-foreground',\n    },\n    {\n      icon: Linkedin,\n      label: 'LinkedIn',\n      href: '#',\n      color: 'hover:text-blue-600',\n    },\n    {\n      icon: Twitter,\n      label: 'Twitter',\n      href: '#',\n      color: 'hover:text-blue-400',\n    },\n    {\n      icon: Mail,\n      label: 'Email',\n      href: 'mailto:contato@example.com',\n      color: 'hover:text-accent',\n    },\n  ];\n\n  const footerLinks = [\n    { label: 'Início', href: '#home' },\n    { label: 'Projetos', href: '#projects' },\n    { label: 'Sobre', href: '#about' },\n    { label: 'Contato', href: '#contact' },\n  ];\n\n  const containerVariants = {\n    hidden: { opacity: 0 },\n    visible: {\n      opacity: 1,\n      transition: {\n        staggerChildren: 0.1,\n      },\n    },\n  };\n\n  const itemVariants = {\n    hidden: { opacity: 0, y: 10 },\n    visible: {\n      opacity: 1,\n      y: 0,\n      transition: { duration: 0.4 },\n    },\n  };\n\n  return (\n    <footer className=\"bg-card border-t border-border mt-20 md:mt-32\">\n      <div className=\"container py-12 md:py-16\">\n        <motion.div\n          variants={containerVariants}\n          initial=\"hidden\"\n          whileInView=\"visible\"\n          viewport={{ once: true }}\n          className=\"space-y-8\"\n        >\n          {/* Main Footer Content */}\n          <div className=\"grid grid-cols-1 md:grid-cols-3 gap-8\">\n            {/* Brand */}\n            <motion.div variants={itemVariants} className=\"space-y-4\">\n              <div className=\"flex items-center gap-2\">\n                <div className=\"w-10 h-10 rounded-lg bg-gradient-accent flex items-center justify-center\">\n                  <span className=\"text-white font-display font-bold text-lg\">\n                    P\n                  </span>\n                </div>\n                <span className=\"font-display font-bold text-lg\">\n                  Portfólio\n                </span>\n              </div>\n              <p className=\"text-foreground/70 text-sm leading-relaxed\">\n                Desenvolvedor full-stack criando experiências digitais\n                inovadoras com design elegante e tecnologia robusta.\n              </p>\n            </motion.div>\n\n            {/* Quick Links */}\n            <motion.div variants={itemVariants} className=\"space-y-4\">\n              <h4 className=\"font-display font-semibold\">Links Rápidos</h4>\n              <nav className=\"flex flex-col gap-2\">\n                {footerLinks.map((link) => (\n                  <a\n                    key={link.label}\n                    href={link.href}\n                    className=\"text-foreground/70 hover:text-foreground transition-smooth text-sm\"\n                  >\n                    {link.label}\n                  </a>\n                ))}\n              </nav>\n            </motion.div>\n\n            {/* Contact */}\n            <motion.div variants={itemVariants} className=\"space-y-4\">\n              <h4 className=\"font-display font-semibold\">Contato</h4>\n              <div className=\"space-y-2 text-sm\">\n                <p className=\"text-foreground/70\">\n                  Email:{' '}\n                  <a\n                    href=\"mailto:contato@example.com\"\n                    className=\"text-accent hover:underline\"\n                  >\n                    contato@example.com\n                  </a>\n                </p>\n                <p className=\"text-foreground/70\">\n                  Localização: São Paulo, Brasil\n                </p>\n              </div>\n            </motion.div>\n          </div>\n\n          {/* Divider */}\n          <motion.div\n            variants={itemVariants}\n            className=\"h-px bg-border\"\n          />\n\n          {/* Bottom Section */}\n          <motion.div\n            variants={itemVariants}\n            className=\"flex flex-col md:flex-row items-center justify-between gap-4\"\n          >\n            {/* Copyright */}\n            <p className=\"text-foreground/60 text-sm\">\n              © {currentYear} Portfólio Interativo. Todos os direitos\n              reservados.\n            </p>\n\n            {/* Social Links */}\n            <div className=\"flex items-center gap-3\">\n              {socialLinks.map((link) => {\n                const Icon = link.icon;\n                return (\n                  <motion.a\n                    key={link.label}\n                    href={link.href}\n                    target=\"_blank\"\n                    rel=\"noopener noreferrer\"\n                    whileHover={{ scale: 1.2 }}\n                    whileTap={{ scale: 0.95 }}\n                    className={`text-foreground/60 transition-smooth ${link.color}`}\n                    aria-label={link.label}\n                  >\n                    <Icon className=\"w-5 h-5\" />\n                  </motion.a>\n                );\n              })}\n            </div>\n          </motion.div>\n        </motion.div>\n      </div>\n    </footer>\n  );\n}\n
+import { motion } from 'framer-motion';
+import { Github, Linkedin, Twitter, Mail } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+
+/**
+ * Componente Footer
+ * Rodapé com links sociais e informações de contato
+ * Design: Minimalismo Sofisticado
+ */
+export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
+  const socialLinks = [
+    {
+      icon: Github,
+      label: 'GitHub',
+      href: '#',
+      color: 'hover:text-foreground',
+    },
+    {
+      icon: Linkedin,
+      label: 'LinkedIn',
+      href: '#',
+      color: 'hover:text-blue-600',
+    },
+    {
+      icon: Twitter,
+      label: 'Twitter',
+      href: '#',
+      color: 'hover:text-blue-400',
+    },
+    {
+      icon: Mail,
+      label: 'Email',
+      href: 'mailto:contato@example.com',
+      color: 'hover:text-accent',
+    },
+  ];
+
+  const footerLinks = [
+    { label: 'Início', href: '#home' },
+    { label: 'Projetos', href: '#projects' },
+    { label: 'Sobre', href: '#about' },
+    { label: 'Contato', href: '#contact' },
+  ];
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.4 },
+    },
+  };
+
+  return (
+    <footer className="bg-card border-t border-border mt-20 md:mt-32">
+      <div className="container py-12 md:py-16">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="space-y-8"
+        >
+          {/* Main Footer Content */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Brand */}
+            <motion.div variants={itemVariants} className="space-y-4">
+              <div className="flex items-center gap-2">
+                <div className="w-10 h-10 rounded-lg bg-gradient-accent flex items-center justify-center">
+                  <span className="text-white font-display font-bold text-lg">
+                    P
+                  </span>
+                </div>
+                <span className="font-display font-bold text-lg">
+                  Portfólio
+                </span>
+              </div>
+              <p className="text-foreground/70 text-sm leading-relaxed">
+                Desenvolvedor full-stack criando experiências digitais
+                inovadoras com design elegante e tecnologia robusta.
+              </p>
+            </motion.div>
+
+            {/* Quick Links */}
+            <motion.div variants={itemVariants} className="space-y-4">
+              <h4 className="font-display font-semibold">Links Rápidos</h4>
+              <nav className="flex flex-col gap-2">
+                {footerLinks.map((link) => (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="text-foreground/70 hover:text-foreground transition-smooth text-sm"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </nav>
+            </motion.div>
+
+            {/* Contact */}
+            <motion.div variants={itemVariants} className="space-y-4">
+              <h4 className="font-display font-semibold">Contato</h4>
+              <div className="space-y-2 text-sm">
+                <p className="text-foreground/70">
+                  Email:{' '}
+                  <a
+                    href="mailto:contato@example.com"
+                    className="text-accent hover:underline"
+                  >
+                    contato@example.com
+                  </a>
+                </p>
+                <p className="text-foreground/70">
+                  Localização: São Paulo, Brasil
+                </p>
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Divider */}
+          <motion.div
+            variants={itemVariants}
+            className="h-px bg-border"
+          />
+
+          {/* Bottom Section */}
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-col md:flex-row items-center justify-between gap-4"
+          >
+            {/* Copyright */}
+            <p className="text-foreground/60 text-sm">
+              © {currentYear} Portfólio Interativo. Todos os direitos
+              reservados.
+            </p>
+
+            {/* Social Links */}
+            <div className="flex items-center gap-3">
+              {socialLinks.map((link) => {
+                const Icon = link.icon;
+                return (
+                  <motion.a
+                    key={link.label}
+                    href={link.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    whileHover={{ scale: 1.2 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`text-foreground/60 transition-smooth ${link.color}`}
+                    aria-label={link.label}
+                  >
+                    <Icon className="w-5 h-5" />
+                  </motion.a>
+                );
+              })}
+            </div>
+          </motion.div>
+        </motion.div>
+      </div>
+    </footer>
+  );
+}
+

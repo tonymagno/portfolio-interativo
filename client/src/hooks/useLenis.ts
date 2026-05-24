@@ -1,1 +1,66 @@
-import { useEffect } from 'react';\nimport Lenis from 'lenis';\n\n/**\n * Hook para inicializar Lenis smooth scroll\n * Proporciona scroll suave e fluido em toda a página\n *\n * @param options - Configurações do Lenis\n */\nexport function useLenis(options?: {\n  duration?: number;\n  easing?: (t: number) => number;\n  direction?: 'vertical' | 'horizontal' | 'both';\n  gestureDirection?: 'vertical' | 'horizontal' | 'both';\n  smooth?: boolean;\n  smoothTouch?: boolean;\n  touchMultiplier?: number;\n  wheelMultiplier?: number;\n  autoRaf?: boolean;\n}) {\n  useEffect(() => {\n    // Inicializar Lenis\n    const lenis = new Lenis({\n      duration: options?.duration || 1.2,\n      easing: options?.easing || ((t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))),\n      direction: options?.direction || 'vertical',\n      gestureDirection: options?.gestureDirection || 'vertical',\n      smooth: options?.smooth !== false,\n      smoothTouch: options?.smoothTouch !== false,\n      touchMultiplier: options?.touchMultiplier || 2,\n      wheelMultiplier: options?.wheelMultiplier || 1,\n      autoRaf: options?.autoRaf !== false,\n    });\n\n    // Integrar com GSAP ScrollTrigger se disponível\n    try {\n      const gsap = require('gsap');\n      const ScrollTrigger = require('gsap/ScrollTrigger');\n      gsap.registerPlugin(ScrollTrigger);\n\n      lenis.on('scroll', ScrollTrigger.update);\n      gsap.ticker.add((time: number) => {\n        lenis.raf(time * 1000);\n      });\n      gsap.ticker.lagSmoothing(0);\n    } catch (e) {\n      // GSAP não disponível, usar RAF padrão\n      let raf: number;\n      const raf_callback = () => {\n        lenis.raf(Date.now());\n        raf = requestAnimationFrame(raf_callback);\n      };\n      raf = requestAnimationFrame(raf_callback);\n\n      return () => {\n        cancelAnimationFrame(raf);\n        lenis.destroy();\n      };\n    }\n\n    return () => {\n      lenis.destroy();\n    };\n  }, [options]);\n}\n
+import { useEffect } from 'react';
+import Lenis from 'lenis';
+
+/**
+ * Hook para inicializar Lenis smooth scroll
+ * Proporciona scroll suave e fluido em toda a página
+ *
+ * @param options - Configurações do Lenis
+ */
+export function useLenis(options?: {
+  duration?: number;
+  easing?: (t: number) => number;
+  direction?: 'vertical' | 'horizontal' | 'both';
+  gestureDirection?: 'vertical' | 'horizontal' | 'both';
+  smooth?: boolean;
+  smoothTouch?: boolean;
+  touchMultiplier?: number;
+  wheelMultiplier?: number;
+  autoRaf?: boolean;
+}) {
+  useEffect(() => {
+    // Inicializar Lenis
+    const lenis = new Lenis({
+      duration: options?.duration || 1.2,
+      easing: options?.easing || ((t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))),
+      direction: options?.direction || 'vertical',
+      gestureDirection: options?.gestureDirection || 'vertical',
+      smooth: options?.smooth !== false,
+      smoothTouch: options?.smoothTouch !== false,
+      touchMultiplier: options?.touchMultiplier || 2,
+      wheelMultiplier: options?.wheelMultiplier || 1,
+      autoRaf: options?.autoRaf !== false,
+    });
+
+    // Integrar com GSAP ScrollTrigger se disponível
+    try {
+      const gsap = require('gsap');
+      const ScrollTrigger = require('gsap/ScrollTrigger');
+      gsap.registerPlugin(ScrollTrigger);
+
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add((time: number) => {
+        lenis.raf(time * 1000);
+      });
+      gsap.ticker.lagSmoothing(0);
+    } catch (e) {
+      // GSAP não disponível, usar RAF padrão
+      let raf: number;
+      const raf_callback = () => {
+        lenis.raf(Date.now());
+        raf = requestAnimationFrame(raf_callback);
+      };
+      raf = requestAnimationFrame(raf_callback);
+
+      return () => {
+        cancelAnimationFrame(raf);
+        lenis.destroy();
+      };
+    }
+
+    return () => {
+      lenis.destroy();
+    };
+  }, [options]);
+}
+

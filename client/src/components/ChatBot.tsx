@@ -1,1 +1,256 @@
-import { useState, useRef, useEffect } from 'react';\nimport { motion, AnimatePresence } from 'framer-motion';\nimport { useGeminiChat, type Message } from '@/hooks/useGeminiChat';\nimport { CHAT_MESSAGES } from '@/config/gemini';\nimport { Button } from '@/components/ui/button';\nimport { Input } from '@/components/ui/input';\nimport { ScrollArea } from '@/components/ui/scroll-area';\nimport { MessageCircle, X, Send, Loader2, AlertCircle } from 'lucide-react';\nimport { toast } from 'sonner';\n\n/**\n * Componente ChatBot\n * Chatbot flutuante com integração Google Gemini 2.0 Flash\n * Design: Minimalismo Sofisticado com animações suaves\n */\nexport default function ChatBot() {\n  const [isOpen, setIsOpen] = useState(false);\n  const [input, setInput] = useState('');\n  const messagesEndRef = useRef<HTMLDivElement>(null);\n  const scrollAreaRef = useRef<HTMLDivElement>(null);\n\n  // Usar hook do Gemini Chat\n  const { messages, isLoading, error, sendMessage, clearMessages, hasApiKey } =\n    useGeminiChat();\n\n  // Auto-scroll para a última mensagem\n  useEffect(() => {\n    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });\n  }, [messages]);\n\n  // Avisar se API key não está configurada\n  useEffect(() => {\n    if (!hasApiKey && isOpen) {\n      toast.error('Chave de API do Gemini não configurada');\n    }\n  }, [hasApiKey, isOpen]);\n\n  // Lidar com envio de mensagem\n  const handleSendMessage = async (e: React.FormEvent) => {\n    e.preventDefault();\n    if (!input.trim() || isLoading) return;\n\n    if (!hasApiKey) {\n      toast.error(\n        'Chave de API do Gemini não configurada. Verifique as variáveis de ambiente.'\n      );\n      return;\n    }\n\n    const userInput = input;\n    setInput('');\n    await sendMessage(userInput);\n  };\n\n  // Variantes de animação\n  const chatVariants = {\n    hidden: { opacity: 0, scale: 0.95, y: 20 },\n    visible: {\n      opacity: 1,\n      scale: 1,\n      y: 0,\n      transition: { duration: 0.3, ease: 'easeOut' },\n    },\n    exit: {\n      opacity: 0,\n      scale: 0.95,\n      y: 20,\n      transition: { duration: 0.2 },\n    },\n  };\n\n  const messageVariants = {\n    hidden: { opacity: 0, y: 10 },\n    visible: {\n      opacity: 1,\n      y: 0,\n      transition: { duration: 0.3 },\n    },\n  };\n\n  return (\n    <div className=\"fixed bottom-6 right-6 z-40\">\n      {/* Chat Window */}\n      <AnimatePresence>\n        {isOpen && (\n          <motion.div\n            variants={chatVariants}\n            initial=\"hidden\"\n            animate=\"visible\"\n            exit=\"exit\"\n            className=\"absolute bottom-20 right-0 w-96 max-w-[calc(100vw-2rem)] bg-card rounded-lg shadow-2xl border border-border overflow-hidden flex flex-col\"\n          >\n            {/* Header */}\n            <div className=\"bg-gradient-accent p-4 text-white flex items-center justify-between\">\n              <div className=\"flex items-center gap-2\">\n                <MessageCircle className=\"w-5 h-5\" />\n                <h3 className=\"font-display font-semibold\">Assistente IA</h3>\n              </div>\n              <button\n                onClick={() => setIsOpen(false)}\n                className=\"p-1 hover:bg-white/20 rounded-lg transition-smooth\"\n                aria-label=\"Fechar chat\"\n              >\n                <X className=\"w-4 h-4\" />\n              </button>\n            </div>\n\n            {/* Messages */}\n            <ScrollArea className=\"flex-1 p-4 h-96 space-y-4\">\n              {messages.length === 0 && (\n                <div className=\"h-full flex items-center justify-center text-center\">\n                  <div className=\"space-y-2\">\n                    {!hasApiKey ? (\n                      <>\n                        <AlertCircle className=\"w-12 h-12 mx-auto text-yellow-500\" />\n                        <p className=\"text-sm text-muted-foreground\">\n                          Chave de API não configurada\n                        </p>\n                      </>\n                    ) : (\n                      <>\n                        <MessageCircle className=\"w-12 h-12 mx-auto text-muted-foreground/30\" />\n                        <p className=\"text-sm text-muted-foreground\">\n                          {CHAT_MESSAGES.welcome}\n                        </p>\n                      </>\n                    )}\n                  </div>\n                </div>\n              )}\n\n              {messages.map((message) => (\n                <motion.div\n                  key={message.id}\n                  variants={messageVariants}\n                  initial=\"hidden\"\n                  animate=\"visible\"\n                  className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}\n                >\n                  <div\n                    className={`max-w-xs px-4 py-2 rounded-lg ${\n                      message.role === 'user'\n                        ? 'bg-gradient-accent text-white rounded-br-none'\n                        : 'bg-muted text-foreground rounded-bl-none'\n                    }`}\n                  >\n                    <p className=\"text-sm leading-relaxed\">{message.content}</p>\n                    <span className=\"text-xs opacity-70 mt-1 block\">\n                      {new Date(message.timestamp).toLocaleTimeString('pt-BR', {\n                        hour: '2-digit',\n                        minute: '2-digit',\n                      })}\n                    </span>\n                  </div>\n                </motion.div>\n              ))}\n\n              {isLoading && (\n                <motion.div\n                  variants={messageVariants}\n                  initial=\"hidden\"\n                  animate=\"visible\"\n                  className=\"flex justify-start\"\n                >\n                  <div className=\"bg-muted px-4 py-2 rounded-lg rounded-bl-none flex items-center gap-2\">\n                    <Loader2 className=\"w-4 h-4 animate-spin\" />\n                    <span className=\"text-sm text-muted-foreground\">\n                      {CHAT_MESSAGES.loading}\n                    </span>\n                  </div>\n                </motion.div>\n              )}\n\n              {error && (\n                <motion.div\n                  variants={messageVariants}\n                  initial=\"hidden\"\n                  animate=\"visible\"\n                  className=\"flex justify-center\"\n                >\n                  <div className=\"bg-destructive/10 text-destructive px-4 py-2 rounded-lg text-sm\">\n                    Erro: {error}\n                  </div>\n                </motion.div>\n              )}\n\n              <div ref={messagesEndRef} />\n            </ScrollArea>\n\n            {/* Input */}\n            <form\n              onSubmit={handleSendMessage}\n              className=\"border-t border-border p-4 flex gap-2\"\n            >\n              <Input\n                type=\"text\"\n                placeholder={\n                  hasApiKey ? 'Escreva sua pergunta...' : 'API não configurada'\n                }\n                value={input}\n                onChange={(e) => setInput(e.target.value)}\n                disabled={isLoading || !hasApiKey}\n                className=\"flex-1\"\n              />\n              <Button\n                type=\"submit\"\n                size=\"icon\"\n                disabled={isLoading || !input.trim() || !hasApiKey}\n                className=\"bg-gradient-accent hover:opacity-90 text-white\"\n              >\n                {isLoading ? (\n                  <Loader2 className=\"w-4 h-4 animate-spin\" />\n                ) : (\n                  <Send className=\"w-4 h-4\" />\n                )}\n              </Button>\n            </form>\n\n            {/* Clear Button */}\n            {messages.length > 0 && (\n              <div className=\"border-t border-border px-4 py-2 flex justify-center\">\n                <button\n                  onClick={clearMessages}\n                  className=\"text-xs text-muted-foreground hover:text-foreground transition-smooth\"\n                >\n                  Limpar conversa\n                </button>\n              </div>\n            )}\n          </motion.div>\n        )}\n      </AnimatePresence>\n\n      {/* Floating Button */}\n      <motion.button\n        whileHover={{ scale: 1.1 }}\n        whileTap={{ scale: 0.95 }}\n        onClick={() => setIsOpen(!isOpen)}\n        className=\"w-14 h-14 rounded-full bg-gradient-accent text-white shadow-lg flex items-center justify-center hover:shadow-xl transition-smooth\"\n        aria-label=\"Abrir chat\"\n      >\n        {isOpen ? (\n          <X className=\"w-6 h-6\" />\n        ) : (\n          <motion.div\n            animate={{ scale: [1, 1.1, 1] }}\n            transition={{ duration: 2, repeat: Infinity }}\n          >\n            <MessageCircle className=\"w-6 h-6\" />\n          </motion.div>\n        )}\n      </motion.button>\n    </div>\n  );\n}\n
+import { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useGeminiChat, type Message } from '@/hooks/useGeminiChat';
+import { CHAT_MESSAGES } from '@/config/gemini';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { MessageCircle, X, Send, Loader2, AlertCircle } from 'lucide-react';
+import { toast } from 'sonner';
+
+/**
+ * Componente ChatBot
+ * Chatbot flutuante com integração Google Gemini 2.0 Flash
+ * Design: Minimalismo Sofisticado com animações suaves
+ */
+export default function ChatBot() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [input, setInput] = useState('');
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
+
+  // Usar hook do Gemini Chat
+  const { messages, isLoading, error, sendMessage, clearMessages, hasApiKey } =
+    useGeminiChat();
+
+  // Auto-scroll para a última mensagem
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  // Avisar se API key não está configurada
+  useEffect(() => {
+    if (!hasApiKey && isOpen) {
+      toast.error('Chave de API do Gemini não configurada');
+    }
+  }, [hasApiKey, isOpen]);
+
+  // Lidar com envio de mensagem
+  const handleSendMessage = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!input.trim() || isLoading) return;
+
+    if (!hasApiKey) {
+      toast.error(
+        'Chave de API do Gemini não configurada. Verifique as variáveis de ambiente.'
+      );
+      return;
+    }
+
+    const userInput = input;
+    setInput('');
+    await sendMessage(userInput);
+  };
+
+  // Variantes de animação
+  const chatVariants = {
+    hidden: { opacity: 0, scale: 0.95, y: 20 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: { duration: 0.3, ease: 'easeOut' },
+    },
+    exit: {
+      opacity: 0,
+      scale: 0.95,
+      y: 20,
+      transition: { duration: 0.2 },
+    },
+  };
+
+  const messageVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.3 },
+    },
+  };
+
+  return (
+    <div className="fixed bottom-6 right-6 z-40">
+      {/* Chat Window */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            variants={chatVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            className="absolute bottom-20 right-0 w-96 max-w-[calc(100vw-2rem)] bg-card rounded-lg shadow-2xl border border-border overflow-hidden flex flex-col"
+          >
+            {/* Header */}
+            <div className="bg-gradient-accent p-4 text-white flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <MessageCircle className="w-5 h-5" />
+                <h3 className="font-display font-semibold">Assistente IA</h3>
+              </div>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="p-1 hover:bg-white/20 rounded-lg transition-smooth"
+                aria-label="Fechar chat"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            {/* Messages */}
+            <ScrollArea className="flex-1 p-4 h-96 space-y-4">
+              {messages.length === 0 && (
+                <div className="h-full flex items-center justify-center text-center">
+                  <div className="space-y-2">
+                    {!hasApiKey ? (
+                      <>
+                        <AlertCircle className="w-12 h-12 mx-auto text-yellow-500" />
+                        <p className="text-sm text-muted-foreground">
+                          Chave de API não configurada
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <MessageCircle className="w-12 h-12 mx-auto text-muted-foreground/30" />
+                        <p className="text-sm text-muted-foreground">
+                          {CHAT_MESSAGES.welcome}
+                        </p>
+                      </>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {messages.map((message) => (
+                <motion.div
+                  key={message.id}
+                  variants={messageVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                >
+                  <div
+                    className={`max-w-xs px-4 py-2 rounded-lg ${
+                      message.role === 'user'
+                        ? 'bg-gradient-accent text-white rounded-br-none'
+                        : 'bg-muted text-foreground rounded-bl-none'
+                    }`}
+                  >
+                    <p className="text-sm leading-relaxed">{message.content}</p>
+                    <span className="text-xs opacity-70 mt-1 block">
+                      {new Date(message.timestamp).toLocaleTimeString('pt-BR', {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
+                    </span>
+                  </div>
+                </motion.div>
+              ))}
+
+              {isLoading && (
+                <motion.div
+                  variants={messageVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className="flex justify-start"
+                >
+                  <div className="bg-muted px-4 py-2 rounded-lg rounded-bl-none flex items-center gap-2">
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span className="text-sm text-muted-foreground">
+                      {CHAT_MESSAGES.loading}
+                    </span>
+                  </div>
+                </motion.div>
+              )}
+
+              {error && (
+                <motion.div
+                  variants={messageVariants}
+                  initial="hidden"
+                  animate="visible"
+                  className="flex justify-center"
+                >
+                  <div className="bg-destructive/10 text-destructive px-4 py-2 rounded-lg text-sm">
+                    Erro: {error}
+                  </div>
+                </motion.div>
+              )}
+
+              <div ref={messagesEndRef} />
+            </ScrollArea>
+
+            {/* Input */}
+            <form
+              onSubmit={handleSendMessage}
+              className="border-t border-border p-4 flex gap-2"
+            >
+              <Input
+                type="text"
+                placeholder={
+                  hasApiKey ? 'Escreva sua pergunta...' : 'API não configurada'
+                }
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                disabled={isLoading || !hasApiKey}
+                className="flex-1"
+              />
+              <Button
+                type="submit"
+                size="icon"
+                disabled={isLoading || !input.trim() || !hasApiKey}
+                className="bg-gradient-accent hover:opacity-90 text-white"
+              >
+                {isLoading ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <Send className="w-4 h-4" />
+                )}
+              </Button>
+            </form>
+
+            {/* Clear Button */}
+            {messages.length > 0 && (
+              <div className="border-t border-border px-4 py-2 flex justify-center">
+                <button
+                  onClick={clearMessages}
+                  className="text-xs text-muted-foreground hover:text-foreground transition-smooth"
+                >
+                  Limpar conversa
+                </button>
+              </div>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Floating Button */}
+      <motion.button
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-14 h-14 rounded-full bg-gradient-accent text-white shadow-lg flex items-center justify-center hover:shadow-xl transition-smooth"
+        aria-label="Abrir chat"
+      >
+        {isOpen ? (
+          <X className="w-6 h-6" />
+        ) : (
+          <motion.div
+            animate={{ scale: [1, 1.1, 1] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <MessageCircle className="w-6 h-6" />
+          </motion.div>
+        )}
+      </motion.button>
+    </div>
+  );
+}
+

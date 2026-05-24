@@ -1,1 +1,43 @@
-import { useEffect, useState } from 'react';\n\n/**\n * Hook para detectar preferência de movimento reduzido do usuário\n * Útil para respeitar acessibilidade e preferências de usuário\n *\n * @returns true se o usuário prefere movimento reduzido\n */\nexport function useReducedMotion(): boolean {\n  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);\n\n  useEffect(() => {\n    // Verificar preferência inicial\n    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');\n    setPrefersReducedMotion(mediaQuery.matches);\n\n    // Escutar mudanças de preferência\n    const handleChange = (e: MediaQueryListEvent) => {\n      setPrefersReducedMotion(e.matches);\n    };\n\n    mediaQuery.addEventListener('change', handleChange);\n    return () => mediaQuery.removeEventListener('change', handleChange);\n  }, []);\n\n  return prefersReducedMotion;\n}\n\n/**\n * Hook para obter configuração de animação baseada em preferência do usuário\n *\n * @param normalDuration - Duração normal em ms\n * @param reducedDuration - Duração reduzida em ms\n * @returns Duração apropriada baseada na preferência\n */\nexport function useAnimationDuration(\n  normalDuration: number = 300,\n  reducedDuration: number = 0\n): number {\n  const prefersReducedMotion = useReducedMotion();\n  return prefersReducedMotion ? reducedDuration : normalDuration;\n}\n
+import { useEffect, useState } from 'react';
+
+/**
+ * Hook para detectar preferência de movimento reduzido do usuário
+ * Útil para respeitar acessibilidade e preferências de usuário
+ *
+ * @returns true se o usuário prefere movimento reduzido
+ */
+export function useReducedMotion(): boolean {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    // Verificar preferência inicial
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setPrefersReducedMotion(mediaQuery.matches);
+
+    // Escutar mudanças de preferência
+    const handleChange = (e: MediaQueryListEvent) => {
+      setPrefersReducedMotion(e.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  return prefersReducedMotion;
+}
+
+/**
+ * Hook para obter configuração de animação baseada em preferência do usuário
+ *
+ * @param normalDuration - Duração normal em ms
+ * @param reducedDuration - Duração reduzida em ms
+ * @returns Duração apropriada baseada na preferência
+ */
+export function useAnimationDuration(
+  normalDuration: number = 300,
+  reducedDuration: number = 0
+): number {
+  const prefersReducedMotion = useReducedMotion();
+  return prefersReducedMotion ? reducedDuration : normalDuration;
+}
+
