@@ -20,8 +20,8 @@ export default function ContactSection() {
     {
       icon: Mail,
       label: 'Email',
-      value: 'tony.magno@example.com',
-      href: 'mailto:tony.magno@example.com',
+      value: 'Tony_brak@hotmail.com',
+      href: 'mailto:Tony_brak@hotmail.com',
     },
     {
       icon: Phone,
