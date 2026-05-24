@@ -18,31 +18,31 @@ export interface Project {
 }
 
 /**
- * Dados dos projetos de Tony Magno
+ * Dados dos projetos reais de Tony Magno com screenshots
  */
 const PROJECTS: Project[] = [
   {
     id: '1',
     title: 'Lumine Joias 2025',
-    description: 'Interface e presença digital para joalheria. Website responsivo com design moderno, galeria de produtos e integração com redes sociais.',
-    image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&h=600&fit=crop',
-    tags: ['HTML', 'CSS', 'JavaScript', 'Responsivo'],
+    description: 'E-commerce de joias com catálogo de produtos, carrinho de compras e integração WhatsApp. Design responsivo com HTML5, CSS3 e JavaScript vanilla.',
+    image: '/manus-storage/lumine-joias-screenshot_a9ab8bc1.webp',
+    tags: ['HTML5', 'CSS3', 'JavaScript', 'E-commerce'],
     link: 'https://tonymagno.github.io/tonymagno-Lumine-Joias-2025/',
     github: 'https://github.com/tonymagno/tonymagno-Lumine-Joias-2025',
   },
   {
     id: '2',
-    title: 'YnoHost TI',
-    description: 'Plataforma institucional para venda de domínios e sites. Sistema de gestão de clientes, suporte técnico e manutenção de aplicações online.',
-    image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&h=600&fit=crop',
-    tags: ['HTML', 'CSS', 'JavaScript', 'Suporte TI'],
+    title: 'YnoHost - Plataforma de Sites',
+    description: 'Plataforma de hospedagem e criação de sites profissionais. Sistema de planos, modelos customizáveis e suporte 24/7. Integração com WhatsApp e email.',
+    image: '/manus-storage/ynohost-screenshot_c5911c21.webp',
+    tags: ['HTML5', 'CSS3', 'JavaScript', 'Hospedagem'],
     link: 'https://tonymagno.github.io/YnoHost/',
     github: 'https://github.com/tonymagno/YnoHost',
   },
   {
     id: '3',
-    title: 'Orçamento Premium',
-    description: 'SaaS Full Stack para geração e gestão de orçamentos profissionais. Autenticação de usuários, controle de planos, geração de PDFs e painel administrativo.',
+    title: 'Orçamento Premium SaaS',
+    description: 'Plataforma SaaS Full Stack para geração e gestão de orçamentos profissionais. Autenticação de usuários, controle de planos, geração de PDFs e painel administrativo.',
     image: 'https://images.unsplash.com/photo-1554224311-beee415c15c7?w=800&h=600&fit=crop',
     tags: ['Python', 'PostgreSQL', 'Autenticação', 'SaaS'],
     link: 'https://orcamento-premium-prod.onrender.com',
@@ -50,21 +50,21 @@ const PROJECTS: Project[] = [
   },
   {
     id: '4',
+    title: 'Karine Lashes Designer',
+    description: 'Website profissional para designer de sobrancelhas e lashes. Portfólio de trabalhos, agendamento de serviços e presença digital com design moderno.',
+    image: 'https://images.unsplash.com/photo-1487412992651-e50b3b63a220?w=800&h=600&fit=crop',
+    tags: ['HTML5', 'CSS3', 'Design', 'Responsivo'],
+    link: 'https://tonymagno.github.io/Karine-Lashes-Designer-site-oficial-/',
+    github: 'https://github.com/tonymagno/Karine-Lashes-Designer-site-oficial-',
+  },
+  {
+    id: '5',
     title: 'Dark Money Robo Dólar',
-    description: 'Projeto de automação e lógica operacional para análise de mercado. Sistema inteligente com processamento de dados e geração de insights.',
+    description: 'Projeto de automação e análise de mercado financeiro. Sistema inteligente com processamento de dados, análise técnica e geração de insights para B3.',
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
     tags: ['Python', 'Automação', 'Análise', 'B3'],
     link: '#',
     github: '#',
-  },
-  {
-    id: '5',
-    title: 'Karine Lashes Designer',
-    description: 'Website profissional para designer de sobrancelhas e lashes. Portfólio de trabalhos, agendamento de serviços e presença digital.',
-    image: 'https://images.unsplash.com/photo-1487412992651-e50b3b63a220?w=800&h=600&fit=crop',
-    tags: ['HTML', 'CSS', 'Design', 'Responsivo'],
-    link: 'https://tonymagno.github.io/Karine-Lashes-Designer-site-oficial-/',
-    github: 'https://github.com/tonymagno/Karine-Lashes-Designer-site-oficial-',
   },
   {
     id: '6',

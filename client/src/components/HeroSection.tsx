@@ -199,7 +199,7 @@ export default function HeroSection() {
               {/* Image Container */}
               <div className="relative rounded-2xl overflow-hidden border border-accent/20 shadow-2xl">
                 <img
-                  src="https://d2xsxph8kpxj0f.cloudfront.net/310519663475702967/KKFbQiZCMcXY3dhG2XYcsf/tony-magno-professional-n4jiCNUpGpR3USKYgxJL8b.webp"
+                  src="/manus-storage/tony-magno-real_857b800f.png"
                   alt="Tony Magno - Desenvolvedor Full Stack"
                   className="w-full h-auto object-cover"
                 />
