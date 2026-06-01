@@ -51,6 +51,11 @@ export function useGeminiChat(options?: UseGeminiChatOptions) {
         return null;
       }
 
+      if (!apiKey) {
+        setError('Configure a variável VITE_GEMINI_API_KEY para ativar o chatbot.');
+        return null;
+      }
+
       setError(null);
       setIsLoading(true);
 
@@ -59,12 +64,12 @@ export function useGeminiChat(options?: UseGeminiChatOptions) {
 
         // Criar chat se não existir
         if (!chatRef.current) {
-          const model = client.getGenerativeModel({
-            model: model,
+          const generativeModel = client.getGenerativeModel({
+            model,
             systemInstruction: systemPrompt,
           });
 
-          chatRef.current = model.startChat({
+          chatRef.current = generativeModel.startChat({
             history: [],
             generationConfig: GENERATION_CONFIG,
           });
@@ -104,7 +109,7 @@ export function useGeminiChat(options?: UseGeminiChatOptions) {
         setIsLoading(false);
       }
     },
-    [initializeClient, systemPrompt, model]
+    [apiKey, initializeClient, systemPrompt, model]
   );
 
   // Limpar histórico de mensagens
