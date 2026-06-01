@@ -143,16 +143,22 @@ export default function HeroSection() {
               <Button
                 size="lg"
                 className="bg-gradient-accent hover:opacity-90 text-white group"
+                asChild
               >
-                Ver Projetos
-                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                <a href="#projects" aria-label="Ir para projetos em destaque">
+                  Ver Projetos
+                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                </a>
               </Button>
               <Button
                 size="lg"
                 variant="outline"
                 className="hover-scale"
+                asChild
               >
-                Conversar com IA
+                <a href="#contact" aria-label="Ir para a seção de contato">
+                  Falar Comigo
+                </a>
               </Button>
             </motion.div>
 
