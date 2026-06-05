@@ -1,4 +1,4 @@
-export const GEMINI_MODEL = 'gemini-2.0-flash';
+export const GEMINI_MODEL = 'gemini-2.5-flash';
 
 export const SYSTEM_PROMPT = `Você é um assistente IA amigável e profissional no portfólio de um desenvolvedor full-stack.
 
