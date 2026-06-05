@@ -66,7 +66,7 @@ export default function HeroSection() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: 'easeOut' },
+      transition: { duration: 0.8, ease: 'easeOut' as const },
     },
   };
 
@@ -112,7 +112,7 @@ export default function HeroSection() {
               variants={itemVariants}
               className="text-lg md:text-xl text-foreground/70 leading-relaxed"
             >
-              Desenvolvedor Full Stack Júnior com experiência em Python, React e JavaScript. Especializado em criar interfaces responsivas, automação de processos e soluções SaaS em produção. Baseado em Ilhabela, SP.
+              Desenvolvedor Full Stack com experiência em Python, React e JavaScript. Especializado em criar interfaces responsivas, automação de processos e soluções SaaS em produção. Baseado em Ilhabela, SP.
             </motion.p>
 
             {/* Stats */}
@@ -205,7 +205,7 @@ export default function HeroSection() {
               {/* Image Container */}
               <div className="relative rounded-2xl overflow-hidden border border-accent/20 shadow-2xl">
                 <img
-                  src="/manus-storage/tony-magno-real_857b800f.png"
+                  src="/images/Tony-Magno-Desenvolvedor-Full-Stack.webp.png"
                   alt="Tony Magno - Desenvolvedor Full Stack"
                   className="w-full h-auto object-cover"
                 />

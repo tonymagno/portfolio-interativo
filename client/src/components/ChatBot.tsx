@@ -1,43 +1,73 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, type FormEvent } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useGeminiChat, type Message } from '@/hooks/useGeminiChat';
+import { useGeminiChat } from '@/hooks/useGeminiChat';
 import { CHAT_MESSAGES } from '@/config/gemini';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ScrollArea } from '@/components/ui/scroll-area';
-import { MessageCircle, X, Send, Loader2, AlertCircle } from 'lucide-react';
+import {
+  MessageCircle,
+  X,
+  Send,
+  Loader2,
+  AlertCircle,
+  Sparkles,
+} from 'lucide-react';
 import { toast } from 'sonner';
 
 /**
  * Componente ChatBot
- * Chatbot flutuante com integração Google Gemini 2.0 Flash
- * Design: Minimalismo Sofisticado com animações suaves
+ * Chatbot flutuante com integração Google Gemini
+ * Design: Futurista premium com animações suaves
  */
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
 
-  // Usar hook do Gemini Chat
   const { messages, isLoading, error, sendMessage, clearMessages, hasApiKey } =
     useGeminiChat();
 
-  // Auto-scroll para a última mensagem
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages]);
+    const openChat = () => setIsOpen(true);
+    const closeChat = () => setIsOpen(false);
 
-  // Avisar se API key não está configurada
+    window.addEventListener('open-chatbot', openChat);
+    window.addEventListener('close-chatbot', closeChat);
+
+    return () => {
+      window.removeEventListener('open-chatbot', openChat);
+      window.removeEventListener('close-chatbot', closeChat);
+    };
+  }, []);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      messagesEndRef.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+      });
+
+      if (messagesContainerRef.current) {
+        messagesContainerRef.current.scrollTo({
+          top: messagesContainerRef.current.scrollHeight,
+          behavior: 'smooth',
+        });
+      }
+    }, 80);
+
+    return () => window.clearTimeout(timer);
+  }, [messages, isOpen]);
+
   useEffect(() => {
     if (!hasApiKey && isOpen) {
       toast.error('Chave de API do Gemini não configurada');
     }
   }, [hasApiKey, isOpen]);
 
-  // Lidar com envio de mensagem
-  const handleSendMessage = async (e: React.FormEvent) => {
+  const handleSendMessage = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (!input.trim() || isLoading) return;
 
     if (!hasApiKey) {
@@ -52,20 +82,19 @@ export default function ChatBot() {
     await sendMessage(userInput);
   };
 
-  // Variantes de animação
   const chatVariants = {
-    hidden: { opacity: 0, scale: 0.95, y: 20 },
+    hidden: { opacity: 0, scale: 0.96, y: 18 },
     visible: {
       opacity: 1,
       scale: 1,
       y: 0,
-      transition: { duration: 0.3, ease: 'easeOut' },
+      transition: { duration: 0.25, ease: 'easeOut' as const },
     },
     exit: {
       opacity: 0,
-      scale: 0.95,
-      y: 20,
-      transition: { duration: 0.2 },
+      scale: 0.96,
+      y: 18,
+      transition: { duration: 0.18 },
     },
   };
 
@@ -74,13 +103,12 @@ export default function ChatBot() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.3 },
+      transition: { duration: 0.22 },
     },
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-40">
-      {/* Chat Window */}
+    <div className="fixed bottom-5 right-5 z-50">
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -88,17 +116,33 @@ export default function ChatBot() {
             initial="hidden"
             animate="visible"
             exit="exit"
-            className="absolute bottom-20 right-0 w-96 max-w-[calc(100vw-2rem)] bg-card rounded-lg shadow-2xl border border-border overflow-hidden flex flex-col"
+            className="absolute bottom-18 right-0 w-[360px] sm:w-[380px] max-w-[calc(100vw-1rem)] max-h-[calc(100vh-6rem)] overflow-hidden rounded-3xl border border-cyan-400/15 bg-slate-950/95 shadow-[0_30px_100px_rgba(2,6,23,0.55)] backdrop-blur-xl flex flex-col"
           >
             {/* Header */}
-            <div className="bg-gradient-accent p-4 text-white flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <MessageCircle className="w-5 h-5" />
-                <h3 className="font-display font-semibold">Assistente IA</h3>
+            <div
+              className="p-4 text-white flex items-center justify-between"
+              style={{
+                background:
+                  'linear-gradient(135deg, rgba(15,23,42,0.98) 0%, rgba(37,99,235,0.92) 45%, rgba(124,58,237,0.95) 100%)',
+              }}
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-full bg-white/10 ring-1 ring-white/15 flex items-center justify-center">
+                  <Sparkles className="w-4 h-4 text-cyan-200" />
+                </div>
+                <div className="leading-tight">
+                  <h3 className="font-display font-semibold">
+                    Ynot AI Assistant
+                  </h3>
+                  <p className="text-xs text-white/75">
+                    Assistente inteligente do portfólio
+                  </p>
+                </div>
               </div>
+
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-1 hover:bg-white/20 rounded-lg transition-smooth"
+                className="p-1.5 hover:bg-white/15 rounded-xl transition-smooth"
                 aria-label="Fechar chat"
               >
                 <X className="w-4 h-4" />
@@ -106,91 +150,112 @@ export default function ChatBot() {
             </div>
 
             {/* Messages */}
-            <ScrollArea className="flex-1 p-4 h-96 space-y-4">
-              {messages.length === 0 && (
-                <div className="h-full flex items-center justify-center text-center">
-                  <div className="space-y-2">
-                    {!hasApiKey ? (
-                      <>
-                        <AlertCircle className="w-12 h-12 mx-auto text-yellow-500" />
-                        <p className="text-sm text-muted-foreground">
-                          Chave de API não configurada
-                        </p>
-                      </>
-                    ) : (
-                      <>
-                        <MessageCircle className="w-12 h-12 mx-auto text-muted-foreground/30" />
-                        <p className="text-sm text-muted-foreground">
-                          {CHAT_MESSAGES.welcome}
-                        </p>
-                      </>
-                    )}
+            <div
+              ref={messagesContainerRef}
+              className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden p-4"
+              style={{
+                scrollbarWidth: 'thin',
+                scrollBehavior: 'smooth',
+              }}
+            >
+              <div className="space-y-4">
+                {messages.length === 0 && (
+                  <div className="min-h-[320px] flex items-center justify-center text-center">
+                    <div className="space-y-3 max-w-[92%]">
+                      {!hasApiKey ? (
+                        <>
+                          <AlertCircle className="w-12 h-12 mx-auto text-yellow-500" />
+                          <p className="text-sm text-muted-foreground">
+                            Chave de API não configurada
+                          </p>
+                        </>
+                      ) : (
+                        <>
+                          <MessageCircle className="w-12 h-12 mx-auto text-muted-foreground/30" />
+                          <p className="text-sm text-muted-foreground leading-relaxed">
+                            {CHAT_MESSAGES.welcome}
+                          </p>
+                        </>
+                      )}
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
 
-              {messages.map((message) => (
-                <motion.div
-                  key={message.id}
-                  variants={messageVariants}
-                  initial="hidden"
-                  animate="visible"
-                  className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                >
-                  <div
-                    className={`max-w-xs px-4 py-2 rounded-lg ${
-                      message.role === 'user'
-                        ? 'bg-gradient-accent text-white rounded-br-none'
-                        : 'bg-muted text-foreground rounded-bl-none'
+                {messages.map((message) => (
+                  <motion.div
+                    key={message.id}
+                    variants={messageVariants}
+                    initial="hidden"
+                    animate="visible"
+                    className={`flex ${
+                      message.role === 'user' ? 'justify-end' : 'justify-start'
                     }`}
                   >
-                    <p className="text-sm leading-relaxed">{message.content}</p>
-                    <span className="text-xs opacity-70 mt-1 block">
-                      {new Date(message.timestamp).toLocaleTimeString('pt-BR', {
-                        hour: '2-digit',
-                        minute: '2-digit',
-                      })}
-                    </span>
-                  </div>
-                </motion.div>
-              ))}
+                    <div
+                      className={`max-w-[86%] break-words whitespace-pre-wrap px-4 py-2.5 rounded-2xl shadow-sm ${
+                        message.role === 'user'
+                          ? 'text-white rounded-br-sm'
+                          : 'bg-slate-800/90 text-slate-100 rounded-bl-sm border border-white/5'
+                      }`}
+                      style={
+                        message.role === 'user'
+                          ? {
+                              background:
+                                'linear-gradient(135deg, rgba(37,99,235,0.95) 0%, rgba(124,58,237,0.95) 100%)',
+                            }
+                          : undefined
+                      }
+                    >
+                      <p className="text-sm leading-relaxed whitespace-pre-wrap break-words">
+                        {message.content}
+                      </p>
+                      <span className="text-[11px] opacity-70 mt-1.5 block">
+                        {new Date(message.timestamp).toLocaleTimeString('pt-BR', {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        })}
+                      </span>
+                    </div>
+                  </motion.div>
+                ))}
 
-              {isLoading && (
-                <motion.div
-                  variants={messageVariants}
-                  initial="hidden"
-                  animate="visible"
-                  className="flex justify-start"
-                >
-                  <div className="bg-muted px-4 py-2 rounded-lg rounded-bl-none flex items-center gap-2">
-                    <Loader2 className="w-4 h-4 animate-spin" />
-                    <span className="text-sm text-muted-foreground">
-                      {CHAT_MESSAGES.loading}
-                    </span>
-                  </div>
-                </motion.div>
-              )}
+                {isLoading && (
+                  <motion.div
+                    variants={messageVariants}
+                    initial="hidden"
+                    animate="visible"
+                    className="flex justify-start"
+                  >
+                    <div className="bg-slate-800/90 px-4 py-2.5 rounded-2xl rounded-bl-sm flex items-center gap-2 shadow-sm border border-white/5">
+                      <Loader2 className="w-4 h-4 animate-spin text-cyan-300" />
+                      <span className="text-sm text-slate-300">
+                        {CHAT_MESSAGES.loading}
+                      </span>
+                    </div>
+                  </motion.div>
+                )}
 
-              {error && (
-                <motion.div
-                  variants={messageVariants}
-                  initial="hidden"
-                  animate="visible"
-                  className="flex justify-center"
-                >
-                  <div className="bg-destructive/10 text-destructive px-4 py-2 rounded-lg text-sm">
-                    Erro: {error}
-                  </div>
-                </motion.div>
-              )}
+                {error && (
+                  <motion.div
+                    variants={messageVariants}
+                    initial="hidden"
+                    animate="visible"
+                    className="flex justify-center"
+                  >
+                    <div className="bg-destructive/10 text-destructive px-4 py-2.5 rounded-xl text-sm max-w-full text-center">
+                      Erro: {error}
+                    </div>
+                  </motion.div>
+                )}
 
-              <div ref={messagesEndRef} />
-            </ScrollArea>
+                <div ref={messagesEndRef} />
+              </div>
+            </div>
 
             {/* Input */}
             <form
               onSubmit={handleSendMessage}
-              className="border-t border-border p-4 flex gap-2"
+              className="border-t border-white/5 p-4 flex gap-2 bg-slate-950/95"
             >
               <Input
                 type="text"
@@ -200,13 +265,18 @@ export default function ChatBot() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 disabled={isLoading || !hasApiKey}
-                className="flex-1"
+                className="flex-1 rounded-2xl border-white/10 bg-slate-900/80 text-slate-100 placeholder:text-slate-400 focus-visible:ring-cyan-400/40"
               />
               <Button
                 type="submit"
                 size="icon"
                 disabled={isLoading || !input.trim() || !hasApiKey}
-                className="bg-gradient-accent hover:opacity-90 text-white"
+                className="shrink-0 rounded-2xl text-white border border-cyan-400/20"
+                style={{
+                  background:
+                    'linear-gradient(135deg, rgba(37,99,235,0.95) 0%, rgba(124,58,237,0.95) 100%)',
+                  boxShadow: '0 0 24px rgba(59,130,246,0.20)',
+                }}
               >
                 {isLoading ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
@@ -218,10 +288,11 @@ export default function ChatBot() {
 
             {/* Clear Button */}
             {messages.length > 0 && (
-              <div className="border-t border-border px-4 py-2 flex justify-center">
+              <div className="border-t border-white/5 px-4 py-2.5 flex justify-center bg-slate-950/95">
                 <button
+                  type="button"
                   onClick={clearMessages}
-                  className="text-xs text-muted-foreground hover:text-foreground transition-smooth"
+                  className="text-xs text-slate-400 hover:text-slate-100 transition-smooth"
                 >
                   Limpar conversa
                 </button>
@@ -233,17 +304,22 @@ export default function ChatBot() {
 
       {/* Floating Button */}
       <motion.button
-        whileHover={{ scale: 1.1 }}
+        whileHover={{ scale: 1.08 }}
         whileTap={{ scale: 0.95 }}
         onClick={() => setIsOpen(!isOpen)}
-        className="w-14 h-14 rounded-full bg-gradient-accent text-white shadow-lg flex items-center justify-center hover:shadow-xl transition-smooth"
+        className="w-14 h-14 rounded-full text-white flex items-center justify-center transition-smooth ring-1 ring-cyan-400/25"
+        style={{
+          background:
+            'linear-gradient(135deg, rgba(15,23,42,0.98) 0%, rgba(37,99,235,0.92) 45%, rgba(124,58,237,0.95) 100%)',
+          boxShadow: '0 0 28px rgba(59,130,246,0.28)',
+        }}
         aria-label="Abrir chat"
       >
         {isOpen ? (
           <X className="w-6 h-6" />
         ) : (
           <motion.div
-            animate={{ scale: [1, 1.1, 1] }}
+            animate={{ scale: [1, 1.08, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
             <MessageCircle className="w-6 h-6" />
@@ -253,4 +329,3 @@ export default function ChatBot() {
     </div>
   );
 }
-

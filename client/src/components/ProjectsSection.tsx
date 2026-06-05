@@ -1,6 +1,5 @@
 import { useRef } from 'react';
 import { motion } from 'framer-motion';
-import { useStaggerAnimation } from '@/hooks/useScrollAnimation';
 import { Button } from '@/components/ui/button';
 import { ExternalLink, Github } from 'lucide-react';
 
@@ -24,59 +23,64 @@ const PROJECTS: Project[] = [
   {
     id: '1',
     title: 'Lumine Joias 2025',
-    description: 'E-commerce de joias com catálogo de produtos, carrinho de compras e integração WhatsApp. Design responsivo com HTML5, CSS3 e JavaScript vanilla.',
-    image: '/manus-storage/lumine-joias-screenshot_a9ab8bc1.webp',
+    description:
+      'E-commerce moderno para joalheria com catálogo de produtos, integração WhatsApp e experiência responsiva.',
+    image: '/images/lumine-joias.webp',
     tags: ['HTML5', 'CSS3', 'JavaScript', 'E-commerce'],
     link: 'https://tonymagno.github.io/tonymagno-Lumine-Joias-2025/',
     github: 'https://github.com/tonymagno/tonymagno-Lumine-Joias-2025',
   },
   {
     id: '2',
-    title: 'YnoHost - Plataforma de Sites',
-    description: 'Plataforma de hospedagem e criação de sites profissionais. Sistema de planos, modelos customizáveis e suporte 24/7. Integração com WhatsApp e email.',
-    image: '/manus-storage/ynohost-screenshot_c5911c21.webp',
-    tags: ['HTML5', 'CSS3', 'JavaScript', 'Hospedagem'],
+    title: 'YnoHost',
+    description:
+      'Landing page profissional para hospedagem, criação de sites e soluções digitais.',
+    image: '/images/ynohost.webp',
+    tags: ['HTML5', 'CSS3', 'JavaScript', 'Landing Page'],
     link: 'https://tonymagno.github.io/YnoHost/',
     github: 'https://github.com/tonymagno/YnoHost',
   },
   {
     id: '3',
     title: 'Orçamento Premium SaaS',
-    description: 'Plataforma SaaS Full Stack para geração e gestão de orçamentos profissionais. Autenticação de usuários, controle de planos, geração de PDFs e painel administrativo.',
-    image: 'https://images.unsplash.com/photo-1554224311-beee415c15c7?w=800&h=600&fit=crop',
-    tags: ['Python', 'PostgreSQL', 'Autenticação', 'SaaS'],
+    description:
+      'Sistema SaaS para gestão de clientes, propostas, orçamentos e processos empresariais.',
+    image: '/images/orcamento-premium.webp',
+    tags: ['React', 'Node.js', 'PostgreSQL', 'SaaS'],
     link: 'https://orcamento-premium-prod.onrender.com',
     github: 'https://github.com/tonymagno/Or-amento-App',
   },
   {
     id: '4',
     title: 'Karine Lashes Designer',
-    description: 'Website profissional para designer de sobrancelhas e lashes. Portfólio de trabalhos, agendamento de serviços e presença digital com design moderno.',
-    image: 'https://images.unsplash.com/photo-1487412992651-e50b3b63a220?w=800&h=600&fit=crop',
-    tags: ['HTML5', 'CSS3', 'Design', 'Responsivo'],
+    description:
+      'Website profissional para extensão de cílios, design de sobrancelhas e presença digital premium.',
+    image: '/images/karine-lashes.webp',
+    tags: ['HTML5', 'CSS3', 'UX/UI', 'Responsivo'],
     link: 'https://tonymagno.github.io/Karine-Lashes-Designer-site-oficial-/',
     github: 'https://github.com/tonymagno/Karine-Lashes-Designer-site-oficial-',
   },
   {
     id: '5',
-    title: 'Dark Money Robo Dólar',
-    description: 'Projeto de automação e análise de mercado financeiro. Sistema inteligente com processamento de dados, análise técnica e geração de insights para B3.',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
-    tags: ['Python', 'Automação', 'Análise', 'B3'],
+    title: 'Dark Money Robô Dólar',
+    description:
+      'Projeto de automação financeira com análise técnica e estratégias para mercado futuro.',
+    image: '/images/dark-money.webp',
+    tags: ['Python', 'Automação', 'Trading', 'B3'],
     link: '#',
     github: '#',
   },
   {
     id: '6',
     title: 'Portfólio Digital',
-    description: 'Portfólio online com projetos publicados em produção. Vitrine de trabalhos, experiência profissional e suporte técnico contínuo.',
-    image: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&h=600&fit=crop',
-    tags: ['React', 'GitHub Pages', 'Portfólio', 'Produção'],
-    link: 'https://tonymagno.github.io/',
-    github: 'https://github.com/tonymagno/tonymagno.github.io',
+    description:
+      'Portfólio interativo desenvolvido em React, TypeScript e Vite com animações avançadas.',
+    image: '/images/portfolio.webp',
+    tags: ['React', 'TypeScript', 'Vite', 'Portfolio'],
+    link: 'https://tonymagno.github.io/portfolio-interativo/',
+    github: 'https://github.com/tonymagno/portfolio-interativo',
   },
 ];
-
 /**
  * Componente ProjectCard
  * Card individual de projeto com animações

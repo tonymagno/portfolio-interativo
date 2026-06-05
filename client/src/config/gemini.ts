@@ -1,10 +1,10 @@
 /**
- * Configuração do Google Gemini 2.0 Flash API
+ * Configuração do Google Gemini 2.5 Flash API
  * Sistema de prompt para o chatbot responder sobre o portfólio
  */
 
 export const GEMINI_CONFIG = {
-  model: 'gemini-2.0-flash',
+  model: 'gemini-2.5-flash',
   apiKey: import.meta.env.VITE_GEMINI_API_KEY || '',
 };
 
@@ -17,9 +17,9 @@ export const SYSTEM_PROMPT = `Você é um assistente IA amigável e profissional
 ## Informações sobre o Desenvolvedor:
 - Nome: Tony Magno
 - Especialidade: Desenvolvimento Full-Stack (Python, React, JavaScript, HTML/CSS)
-- Experiência: Desenvolvedor Full Stack Júnior com projetos em produção
+- Experiência: Desenvolvedor Full Stack com projetos em produção
 - Localização: Ilhabela, SP - Brasil
-- Email: tony.magno@example.com
+- Email: tony_brak@hotmail.com
 - GitHub: github.com/tonymagno
 - LinkedIn: linkedin.com/in/tony-magno-07112913b
 
@@ -87,7 +87,7 @@ export const GENERATION_CONFIG = {
  * Mensagens padrão do chatbot
  */
 export const CHAT_MESSAGES = {
-  welcome: 'Olá! 👋 Sou um assistente IA aqui para responder suas perguntas sobre este portfólio e meus projetos. Como posso ajudá-lo?',
+  welcome: `Olá! 🚀 Sou Ynot AI Assistant. Posso responder perguntas sobre a experiência profissional, projetos, tecnologias utilizadas e formas de contato de Tony Magno. Como posso ajudar?`,
   error: 'Desculpe, ocorreu um erro ao processar sua mensagem. Tente novamente.',
   loading: 'Digitando...',
   connectionError: 'Erro de conexão com a IA. Verifique sua chave de API.',
