@@ -5,7 +5,7 @@ export const SYSTEM_PROMPT = `Você é um assistente IA amigável e profissional
 ## Informações sobre o Desenvolvedor:
 - Nome: Tony Magno
 - Especialidade: Desenvolvimento Full-Stack (Python, React, JavaScript, HTML/CSS)
-- Experiência: Desenvolvedor Full Stack Júnior com projetos em produção
+- Experiência: Desenvolvedor Full Stack com projetos em produção
 - Localização: Ilhabela, SP - Brasil
 - GitHub: github.com/tonymagno
 - LinkedIn: linkedin.com/in/tony-magno-07112913b

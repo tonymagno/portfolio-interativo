@@ -84,7 +84,7 @@ export default function AboutSection() {
 
   const experiences = [
     {
-      title: 'Desenvolvedor Full Stack Júnior',
+      title: 'Desenvolvedor Full Stack',
       company: 'YnoHost TI (Autônomo)',
       period: '2024 - Atual',
       description: 'Desenvolvimento de projetos web, soluções digitais, interfaces responsivas e suporte técnico.',
@@ -122,7 +122,7 @@ export default function AboutSection() {
             Sobre Mim
           </h2>
           <p className="text-foreground/70 text-lg max-w-2xl mx-auto">
-            Desenvolvedor Full Stack Júnior baseado em Ilhabela, SP, com paixão por criar soluções digitais inovadoras.
+            Desenvolvedor Full Stack baseado em Ilhabela, SP, com paixão por criar soluções digitais inovadoras.
           </p>
         </motion.div>
 
