@@ -2,7 +2,7 @@
 
 ## 📋 Visão Geral
 
-Portfólio interativo profissional desenvolvido com **React 19**, **TypeScript** e **Tailwind CSS 4**, apresentando animações avançadas com **GSAP 3**, **Framer Motion** e **ScrollTrigger**, integrado com **Google Gemini 2.0 Flash API** para um chatbot inteligente.
+Portfólio interativo profissional desenvolvido com **React 19**, **TypeScript** e **Tailwind CSS 4**, apresentando animações avançadas com **GSAP 3**, **Framer Motion** e **ScrollTrigger**, integrado com **Google Gemini 2.5 Flash API** para um chatbot inteligente.
 
 ---
 
@@ -24,7 +24,7 @@ Portfólio interativo profissional desenvolvido com **React 19**, **TypeScript**
 - **Lenis** - Smooth scrolling library para experiência fluida
 
 #### **IA & Chatbot**
-- **Google Gemini 2.0 Flash API** - Modelo de IA para respostas inteligentes
+- **Google Gemini 2.5 Flash API** - Modelo de IA para respostas inteligentes
 - **Context Profissional** - Sistema de contexto para respostas personalizadas
 
 #### **UI Components**

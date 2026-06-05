@@ -16,7 +16,7 @@ export interface UseGeminiChatOptions {
 }
 
 /**
- * Hook customizado para integrar Google Gemini 2.0 Flash API
+ * Hook customizado para integrar Google Gemini 2.5 Flash API
  * Gerencia conversas com IA sobre projetos e trabalho
  *
  * @param options - Configurações da API Gemini
