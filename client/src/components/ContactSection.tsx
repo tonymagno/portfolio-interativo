@@ -3,37 +3,81 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Send,
+  CheckCircle,
+  MessageCircle,
+  Github,
+  Linkedin,
+  Download,
+  ArrowRight,
+} from 'lucide-react';
 import { toast } from 'sonner';
 
 /**
  * Componente ContactSection
- * Seção de contato com formulário e informações de Tony Magno
- * Design: Minimalismo Sofisticado
+ * Seção de contato com foco em conversão, SEO local e canais profissionais.
+ * Design: Futurista premium com CTA forte para contratação.
  */
 export default function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
+  const email = 'Tony_brak@hotmail.com';
+  const phoneDisplay = '+55 (12) 97813-5300';
+  const phoneHref = 'tel:+5512978135300';
+  const whatsappHref =
+    'https://wa.me/5512978135300?text=Ol%C3%A1%20Tony%2C%20vim%20pelo%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20um%20projeto.';
+  const githubHref = 'https://github.com/tonymagno';
+  const linkedinHref = 'https://www.linkedin.com/in/tony-magno-07112913b/';
+  const mapsHref = 'https://www.google.com/maps/search/?api=1&query=Ilhabela,+SP,+Brasil';
+  const cvHref = '/Tony-Magno-Curriculo.pdf';
+
   const contactInfo = [
     {
       icon: Mail,
-      label: 'Email',
-      value: 'Tony_brak@hotmail.com',
-      href: 'mailto:Tony_brak@hotmail.com',
+      label: 'E-mail',
+      value: email,
+      href: `mailto:${email}`,
+      external: false,
     },
     {
       icon: Phone,
       label: 'Telefone',
-      value: '+55 (12) 12978135300',
-      href: 'tel:+5512978135300',
+      value: phoneDisplay,
+      href: phoneHref,
+      external: false,
+    },
+    {
+      icon: MessageCircle,
+      label: 'WhatsApp',
+      value: phoneDisplay,
+      href: whatsappHref,
+      external: true,
     },
     {
       icon: MapPin,
       label: 'Localização',
-      value: 'Ilhabela, SP - Brasil',
-      href: '#',
+      value: 'Ilhabela, SP • Caraguatatuba • Litoral Norte SP',
+      href: mapsHref,
+      external: true,
+    },
+  ];
+
+  const socialLinks = [
+    {
+      label: 'GitHub',
+      href: githubHref,
+      icon: Github,
+    },
+    {
+      label: 'LinkedIn',
+      href: linkedinHref,
+      icon: Linkedin,
     },
   ];
 
@@ -50,7 +94,7 @@ export default function ContactSection() {
       setTimeout(() => {
         setIsSubmitted(false);
       }, 3000);
-    } catch (error) {
+    } catch {
       toast.error('Erro ao enviar mensagem. Tente novamente.');
     } finally {
       setIsSubmitting(false);
@@ -58,30 +102,70 @@ export default function ContactSection() {
   };
 
   return (
-    <section
-      id="contact"
-      className="py-20 md:py-32 space-y-12"
-    >
+    <section id="contact" className="py-20 md:py-32 space-y-12">
       <div className="container">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center space-y-4 mb-16"
+          className="text-center space-y-4 mb-10"
         >
+          <p className="text-xs uppercase tracking-[0.35em] text-cyan-300/80">
+            Portfólio profissional • Litoral Norte SP
+          </p>
           <h2 className="font-display text-4xl md:text-5xl font-bold">
             Vamos Conversar?
           </h2>
-          <p className="text-foreground/70 text-lg max-w-2xl mx-auto">
-            Tenho interesse em ouvir sobre novos projetos e oportunidades. Sinta-se à vontade para entrar em contato.
+          <p className="text-foreground/70 text-lg max-w-3xl mx-auto">
+            Estou aberto a novas oportunidades, projetos freelance e parcerias.
+            Atendo clientes em Ilhabela, Caraguatatuba e em todo o Litoral Norte de SP,
+            com foco em desenvolvimento Full Stack, IA e soluções digitais premium.
           </p>
         </motion.div>
 
-        {/* Contact Content */}
+        {/* CTA principal */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="mb-12 rounded-3xl border border-cyan-400/15 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 p-6 md:p-8 shadow-2xl"
+        >
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+            <div className="max-w-2xl space-y-3">
+              <p className="text-xs uppercase tracking-[0.35em] text-cyan-300/80">
+                Disponível para contratação
+              </p>
+              <h3 className="text-2xl md:text-3xl font-bold leading-tight">
+                Contrate um Desenvolvedor Full Stack com presença no Litoral Norte de SP.
+              </h3>
+              <p className="text-foreground/70 leading-relaxed">
+                Se você precisa de site institucional, portfólio premium, automação, integração com IA,
+                ou suporte técnico com visão moderna de produto, este é o ponto de partida ideal.
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button asChild className="rounded-full bg-gradient-accent text-white hover:opacity-90">
+                <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
+                  Falar no WhatsApp
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </a>
+              </Button>
+
+              <Button asChild variant="outline" className="rounded-full border-cyan-400/20 bg-transparent">
+                <a href={cvHref} download>
+                  <Download className="w-4 h-4 mr-2" />
+                  Baixar Currículo
+                </a>
+              </Button>
+            </div>
+          </div>
+        </motion.div>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Info */}
+          {/* Informações de contato */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -91,12 +175,12 @@ export default function ContactSection() {
           >
             <div className="space-y-4">
               <h3 className="text-2xl font-bold">Informações de Contato</h3>
-              <p className="text-foreground/70">
-                Estou sempre aberto a novas oportunidades e colaborações. Entre em contato através de qualquer um dos canais abaixo.
+              <p className="text-foreground/70 leading-relaxed">
+                Você pode me chamar por e-mail, WhatsApp, LinkedIn ou GitHub.
+                Também trabalho com projetos para Caraguatatuba, Ilhabela e todo o Litoral Norte.
               </p>
             </div>
 
-            {/* Contact Items */}
             <div className="space-y-4">
               {contactInfo.map((info, index) => {
                 const Icon = info.icon;
@@ -104,18 +188,20 @@ export default function ContactSection() {
                   <motion.a
                     key={info.label}
                     href={info.href}
+                    target={info.external ? '_blank' : undefined}
+                    rel={info.external ? 'noopener noreferrer' : undefined}
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    transition={{ duration: 0.6, delay: index * 0.08 }}
                     viewport={{ once: true }}
-                    className="flex items-start gap-4 p-4 rounded-lg bg-card border border-border hover:border-accent/30 transition-colors group"
+                    className="flex items-start gap-4 p-4 rounded-2xl bg-card/80 border border-border hover:border-cyan-400/30 transition-smooth group"
                   >
-                    <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center flex-shrink-0 group-hover:bg-accent/20 transition-colors">
-                      <Icon className="w-6 h-6 text-accent" />
+                    <div className="w-12 h-12 rounded-xl bg-cyan-500/10 flex items-center justify-center flex-shrink-0 group-hover:bg-cyan-500/20 transition-colors">
+                      <Icon className="w-6 h-6 text-cyan-300" />
                     </div>
-                    <div>
-                      <h4 className="font-semibold">{info.label}</h4>
-                      <p className="text-foreground/70 group-hover:text-foreground transition-colors">
+                    <div className="min-w-0">
+                      <h4 className="font-semibold text-base">{info.label}</h4>
+                      <p className="text-foreground/70 group-hover:text-foreground transition-colors break-words">
                         {info.value}
                       </p>
                     </div>
@@ -124,37 +210,37 @@ export default function ContactSection() {
               })}
             </div>
 
-            {/* Social Links */}
             <div className="space-y-4 pt-4">
-              <h4 className="font-semibold">Redes Sociais</h4>
-              <div className="flex gap-4">
-                <a
-                  href="https://github.com/tonymagno"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-accent/10 hover:bg-accent/20 transition-colors"
-                  title="GitHub"
-                >
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v 3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                  </svg>
-                </a>
-                <a
-                  href="https://www.linkedin.com/in/tony-magno-07112913b/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-accent/10 hover:bg-accent/20 transition-colors"
-                  title="LinkedIn"
-                >
-                  <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.475-2.236-1.986-2.236-1.081 0-1.722.722-2.004 1.418-.103.249-.129.597-.129.946v5.441h-3.554s.05-8.736 0-9.646h3.554v1.348c.421-.649 1.175-1.574 2.847-1.574 2.081 0 3.641 1.356 3.641 4.27v5.602zM5.337 8.855c-1.144 0-1.915-.762-1.915-1.715 0-.955.77-1.715 1.959-1.715 1.188 0 1.914.76 1.938 1.715 0 .953-.75 1.715-1.982 1.715zm1.946 11.597H3.392V9.806h3.891v10.646zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" />
-                  </svg>
-                </a>
+              <h4 className="font-semibold">Redes Profissionais</h4>
+              <div className="flex flex-wrap gap-4">
+                {socialLinks.map((link) => {
+                  const Icon = link.icon;
+                  return (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-accent/10 hover:bg-accent/20 border border-accent/20 transition-colors"
+                      title={link.label}
+                    >
+                      <Icon className="w-5 h-5" />
+                      <span className="text-sm font-medium">{link.label}</span>
+                    </a>
+                  );
+                })}
               </div>
+            </div>
+
+            <div className="rounded-2xl border border-cyan-400/15 bg-slate-950/70 p-5">
+              <p className="text-sm text-foreground/70 leading-relaxed">
+                SEO local: Ilhabela, Caraguatatuba, São Sebastião, Ubatuba e Litoral Norte de SP.
+                Ideal para quem busca presença digital premium, site moderno e conversão real.
+              </p>
             </div>
           </motion.div>
 
-          {/* Contact Form */}
+          {/* Formulário */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -168,24 +254,26 @@ export default function ContactSection() {
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="flex flex-col items-center justify-center p-8 rounded-lg bg-accent/10 border border-accent/20"
+                className="flex flex-col items-center justify-center p-8 rounded-2xl bg-accent/10 border border-accent/20"
               >
                 <CheckCircle className="w-12 h-12 text-accent mb-4" />
                 <h4 className="text-lg font-semibold mb-2">Mensagem Enviada!</h4>
                 <p className="text-foreground/70 text-center">
-                  Obrigado pelo contato. Responderei em breve.
+                  Obrigado pelo contato. Retornarei o mais rápido possível.
                 </p>
               </motion.div>
             ) : (
               <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <Input
+                    name="name"
                     type="text"
                     placeholder="Seu Nome"
                     required
                     disabled={isSubmitting}
                   />
                   <Input
+                    name="email"
                     type="email"
                     placeholder="Seu Email"
                     required
@@ -194,6 +282,7 @@ export default function ContactSection() {
                 </div>
 
                 <Input
+                  name="subject"
                   type="text"
                   placeholder="Assunto"
                   required
@@ -201,8 +290,9 @@ export default function ContactSection() {
                 />
 
                 <Textarea
+                  name="message"
                   placeholder="Sua Mensagem"
-                  rows={5}
+                  rows={6}
                   required
                   disabled={isSubmitting}
                 />
@@ -225,6 +315,22 @@ export default function ContactSection() {
                     </>
                   )}
                 </Button>
+
+                <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                  <Button asChild variant="outline" className="flex-1">
+                    <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
+                      <MessageCircle className="w-4 h-4 mr-2" />
+                      WhatsApp
+                    </a>
+                  </Button>
+
+                  <Button asChild variant="outline" className="flex-1">
+                    <a href={`mailto:${email}`}>
+                      <Mail className="w-4 h-4 mr-2" />
+                      E-mail
+                    </a>
+                  </Button>
+                </div>
               </form>
             )}
           </motion.div>
