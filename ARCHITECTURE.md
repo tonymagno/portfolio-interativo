@@ -95,9 +95,9 @@ portfolio-interativo/
 
 ## 🔌 APIs & Integrações
 
-### 1. **Google Gemini 2.0 Flash API**
+### 1. **Google Gemini 2.5 Flash API**
 
-**Endpoint:** `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent`
+**Endpoint:** `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent`
 
 **Autenticação:** Chave de API via `VITE_GEMINI_API_KEY`
 
