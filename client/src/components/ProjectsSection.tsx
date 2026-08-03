@@ -21,6 +21,16 @@ export interface Project {
  */
 const PROJECTS: Project[] = [
   {
+    id: '0',
+    title: 'Enterprise Operations Dashboard',
+    description:
+      'Plataforma corporativa de monitoramento operacional com KPIs executivos, telemetria em tempo real, alertas, gestão de usuários e RBAC com autenticação JWT.',
+    image: '/images/enterprise-dashboard.webp',
+    tags: ['React', 'TypeScript', 'JWT', 'Dashboard'],
+    link: 'https://github.com/tonymagno/Enterprise-Operations-Dashboard',
+    github: 'https://github.com/tonymagno/Enterprise-Operations-Dashboard',
+  },
+  {
     id: '1',
     title: 'Lumine Joias 2025',
     description:
@@ -37,8 +47,8 @@ const PROJECTS: Project[] = [
       'Landing page profissional para hospedagem, criação de sites e soluções digitais.',
     image: '/images/ynohost.webp',
     tags: ['HTML5', 'CSS3', 'JavaScript', 'Landing Page'],
-    link: 'https://tonymagno.github.io/YnoHost/',
-    github: 'https://github.com/tonymagno/YnoHost',
+    link: 'https://tonymagno.github.io/YnotHost/',
+    github: 'https://github.com/tonymagno/YnotHost',
   },
   {
     id: '3',
@@ -77,7 +87,7 @@ const PROJECTS: Project[] = [
       'Portfólio interativo desenvolvido em React, TypeScript e Vite com animações avançadas.',
     image: '/images/portfolio.webp',
     tags: ['React', 'TypeScript', 'Vite', 'Portfolio'],
-    link: 'https://tonymagno.github.io/portfolio-interativo/',
+    link: 'https://portfolio-interativo-taupe.vercel.app',
     github: 'https://github.com/tonymagno/portfolio-interativo',
   },
 ];
